@@ -6,7 +6,7 @@ body {
     background-color: #f4f4f4;
     /* Warna abu-abu muda untuk background */
     color: #333;
-    margin: 0;
+    margin: 10px;
     padding: 20px;
 }
 
@@ -18,45 +18,10 @@ h1 {
     padding-bottom: 10px;
 }
 
-h2 {
-    color: #34495e;
-    margin-top: 30px;
-}
-
 h3 {
     color: #34495e;
     text-align: center;
-    margin-top: 30px;
 }
-
-/* Styling tabel data */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    /* Menggabungkan border ganda menjadi satu */
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Efek bayangan halus */
-}
-
-th,
-td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th {
-    background-color: #2980b9;
-    /* Biru profesional */
-    color: white;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-    /* Highlight baris saat mouse diarahkan */
-}
-
 
 /* form */
 form {
@@ -83,7 +48,6 @@ label {
 
 input[type="text"],
 input[type="number"],
-input[type="date"],
 input[type="radio"] select,
 textarea {
     width: 100%;
@@ -99,7 +63,6 @@ textarea {
 /* Styling khusus tombol */
 button {
     background-color: #f1f1f1;
-    /* Hijau */
     color: white;
     padding: 12px 20px;
     border: none;
@@ -132,20 +95,11 @@ button:hover {
     /* Hijau lebih gelap saat hover */
 }
 
-/* Penambahan Style status ok dan status down(latihan 1) */
-.status-ok {
-    color: #219150;
-    font-weight: bold;
-}
-
-.status-down {
-    color: red;
-    font-weight: bold;
-}
-
 /* penambahan style container (latihan 2) */
 .container {
     max-width: 800px;
     margin: auto;
     background: white;
+    padding: 20px;
+    border-radius: 15px;
 }

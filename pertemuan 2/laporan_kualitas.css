@@ -22,9 +22,10 @@ h2 {
     color: #34495e;
     margin-top: 30px;
 }
+
 h3 {
     color: #34495e;
-    text-align: center  ;
+    text-align: center;
     margin-top: 30px;
 }
 
@@ -74,7 +75,8 @@ label {
     margin-bottom: 5px;
     font-weight: bold;
 }
-.label-radio{
+
+.label-radio {
     display: inline-block;
     font-weight: lighter;
 }
@@ -82,8 +84,7 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="date"],
-input[type="radio"]
-select,
+input[type="radio"] select,
 textarea {
     width: 100%;
     /* Lebar penuh */
@@ -97,7 +98,7 @@ textarea {
 
 /* Styling khusus tombol */
 button {
-    background-color: #27ae60;
+    background-color: #f1f1f1;
     /* Hijau */
     color: white;
     padding: 12px 20px;
@@ -106,6 +107,24 @@ button {
     cursor: pointer;
     width: 100%;
     font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+button[type="reset"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+button[type="reset"]:hover {
+    background-color: #c82333;
 }
 
 button:hover {
@@ -127,6 +146,6 @@ button:hover {
 /* penambahan style container (latihan 2) */
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
     background: white;
 }

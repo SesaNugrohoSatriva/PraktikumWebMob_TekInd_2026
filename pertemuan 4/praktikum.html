@@ -5,52 +5,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praktikum JavaScript Dasar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
+    
+    <header class="bg-primary text-white py-4 shadow">
+        <div class="container">
+            <h1 class="mb-1">Praktikum JavaScript Dasar</h1>
+            <p class="mb-0">Dibuat oleh Sesa Nugroho Satriva (23051430031)</p>
+        </div>
+    </header>
 
-    <h1>Praktikum JavaScript Dasar</h1>
+    <section class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Step 1 – Variabel dan Tipe Data</h4>
 
-    <h2>Petunjuk</h2>
-    <p>
-        Buka Developer Tools dengan menekan 
-        <strong>F12</strong> atau
-        <strong>Fn + F12</strong>
-        , lalu pilih tab 
-        <strong>Console</strong>.
-        Semua hasil perhitungan dan logika program akan tampil di sana.
-    </p>
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>
+let namaMesin = "CNC-Mazak-01";
+let targetHarian = 500;
 
-    <hr>
+console.log("Mesin: " + namaMesin);
+console.log("Target Harian: " + targetHarian);
+</code></pre>
+                </div>
 
-    <h2>Materi yang Dipraktikkan</h2>
+                <p class="mt-3">
+                    Variabel <code>namaMesin</code> bertipe String karena menyimpan teks.
+                    Variabel <code>targetHarian</code> bertipe Number karena digunakan
+                    untuk perhitungan matematis. Nilai ditampilkan menggunakan
+                    <code>console.log()</code> ke console browser.
+                </p>
+            </div>
+        </div>
+    </section>
 
-    <ul>
-        <li>Variabel dan Tipe Data (String, Number)</li>
-        <li>Operator Aritmatika (Penjumlahan dan Pengurangan)</li>
-        <li>Logika If / Else If / Else</li>
-        <li>Perhitungan Availability (%)</li>
-        <li>Validasi Status Maintenance Mesin</li>
-        <li>Input Pengguna dengan <code>prompt()</code></li>
-        <li>Output dengan <code>console.log()</code> dan <code>alert()</code></li>
-    </ul>
+    <section class="container mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Step 2 – Operator Aritmatika</h4>
 
-    <hr>
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>
+let produksiPagi = 200;
+let produksiSiang = 150;
 
-    <h2>Penjelasan Program</h2>
+let totalProduksi = produksiPagi + produksiSiang;
+let kekurangan = targetHarian - totalProduksi;
 
-    <p>
-        Program ini mensimulasikan sistem monitoring mesin produksi.
-        Sistem menghitung total produksi, mengevaluasi kekurangan target,
-        mengecek status maintenance berdasarkan jam operasional,
-        serta menghitung availability produksi.
-    </p>
+console.log("Total Produksi: " + totalProduksi);
+console.log("Kekurangan Target: " + kekurangan);
+</code></pre>
+                </div>
 
-    <p>
-        Di bagian akhir, program meminta input nama operator dan shift kerja.
-        Jika operator bekerja pada shift malam, maka akan muncul notifikasi
-        tambahan uang makan.
-    </p>
+                <p class="mt-3">
+                    Total produksi dihitung dengan operator penjumlahan (+).
+                    Kekurangan target dihitung menggunakan operator pengurangan (-).
+                    Hasil menunjukkan selisih antara target dan pencapaian aktual.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Step 3 – Logika If / Else (Status Maintenance)</h4>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>
+let jamOperasional = 1250;
+let batasMaksimal = 1200;
+
+if (jamOperasional >= batasMaksimal) {
+    console.log("Status: MAINTENANCE WAJIB");
+} else if (jamOperasional > 1000) {
+    console.log("Status: SIAP HATI-HATI");
+} else {
+    console.log("Status: BERJALAN NORMAL");
+}
+</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Struktur percabangan digunakan untuk mengevaluasi kondisi.
+                    Jika jam operasional melebihi batas maksimal, maka mesin wajib
+                    maintenance. Jika mendekati batas, sistem memberi peringatan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Step 4 – Perhitungan Availability</h4>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>
+let jamKerjaPlanned = 8;
+let jamKerjaAktual = 6.5;
+
+let availability = (jamKerjaAktual / jamKerjaPlanned) * 100;
+availability = availability.toFixed(2);
+
+console.log("Availability: " + availability + "%");
+
+if (availability >= 90) {
+    console.log("Kategori: WORLD CLASS");
+} else if (availability >= 80) {
+    console.log("Kategori: BAIK");
+} else {
+    console.log("Kategori: BURUK");
+}
+</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Availability dihitung menggunakan rumus rasio waktu aktual
+                    terhadap waktu rencana dikali 100%.
+                    Fungsi <code>toFixed(2)</code> membatasi dua angka di belakang koma.
+                    Nilai kemudian dikategorikan menggunakan percabangan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Step 5 – Input Pengguna (prompt dan alert)</h4>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>
+let namaOperator = prompt("Masukkan Nama Operator:");
+let shiftKerja = prompt("Masukkan Shift (Pagi/Siang/Malam):");
+
+if (shiftKerja === "Malam") {
+    alert("Halo " + namaOperator + 
+          ", Shift malam mendapat tambahan Rp 20.000.");
+} else {
+    alert("Halo " + namaOperator + 
+          ", Selamat bekerja.");
+}
+</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Fungsi <code>prompt()</code> digunakan untuk menerima input dari pengguna.
+                    Nilai yang dimasukkan akan disimpan dalam variabel
+                    <code>namaOperator</code> dan <code>shiftKerja</code>.
+                </p>
+
+                <p>
+                    Nilai yang dikembalikan oleh <code>prompt()</code> selalu bertipe String.
+                    Jika pengguna menekan Cancel, maka nilainya adalah <code>null</code>.
+                    Jika kosong, maka nilainya adalah String kosong ("").
+                </p>
+
+                <p>
+                    Struktur <code>if</code> membandingkan isi <code>shiftKerja</code>
+                    dengan teks "Malam". Jika sama persis (menggunakan operator ===),
+                    maka sistem memberikan notifikasi tambahan uang makan.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <script src="praktikum.js"></script>
 

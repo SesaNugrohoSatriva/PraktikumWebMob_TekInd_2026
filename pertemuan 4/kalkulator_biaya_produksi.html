@@ -5,103 +5,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyek Mini - Kalkulator Biaya Produksi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
-    <section>
-        <div class="container py-5">
 
-            <header>
-                <div class="text-center mb-4">
-                    <h1 class="fw-bold">Kalkulator Biaya Produksi per Unit</h1>
-                    <p class="text-muted">
-                        Dibuat oleh : Sesa Nugroho Satriva_23051430031
-                    </p>
-                </div>
-            </header>
+    <header class="bg-primary text-white py-4 shadow-sm">
+        <div class="container text-center">
+            <h1 class="fw-bold mb-1">Kalkulator Biaya Produksi per Unit</h1>
+            <p class="mb-0">Dibuat oleh Sesa Nugroho Satriva (23051430031)</p>
+        </div>
+    </header>
 
-            <section>
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Komponen Biaya</h5>
-                        <ul>
-                            <li><strong>Biaya Bahan Baku</strong> – material utama produksi</li>
-                            <li><strong>Biaya Tenaga Kerja</strong> – upah pekerja langsung</li>
-                            <li><strong>Biaya Overhead</strong> – listrik, sewa, dan biaya pendukung</li>
-                            <li><strong>Jumlah Produksi</strong> – total unit yang dihasilkan</li>
-                        </ul>
+    <main class="container my-5">
 
-                        <h6 class="mt-3">Rumus Perhitungan</h6>
-                        <p class="fw-semibold">
-                            Total per Unit =
-                            (Bahan Baku + Tenaga Kerja + Overhead) ÷ Jumlah Produksi
-                        </p>
+        <section class="mb-5">
+            <article class="card shadow-sm">
+                <div class="card-body">
 
-                        <p class="mb-0">
-                            Jika produksi &lt; 100 → <span class="text-danger">Biaya Tinggi</span><br>
-                            Jika produksi ≥ 100 → <span class="text-success">Biaya Efisien</span>
-                        </p>
+                    <h2 class="h4 fw-bold text-center mb-4">Penjelasan Penggunaan Kode</h2>
+
+                    <h3 class="h5 mt-3">1. Setup Awal</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>document.getElementById("formProduksi")
+.addEventListener("submit", function (event) {
+
+    event.preventDefault();</code></pre>
                     </div>
+                    <p>
+                        Mengambil elemen form berdasarkan ID dan menangkap event submit.
+                        <code>event.preventDefault()</code> digunakan untuk mencegah reload halaman.
+                    </p>
+
+                    <h3 class="h5 mt-4">2. Mengambil Data Input</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>let biayaBahanBaku = Number(document.getElementById("bahanBaku").value);
+let biayaTenagaKerja = Number(document.getElementById("tenagaKerja").value);
+let biayaOverhead = Number(document.getElementById("overhead").value);
+let jumlahProduksi = Number(document.getElementById("jumlahProduksi").value);</code></pre>
+                    </div>
+                    <p>
+                        Nilai input diambil dari field HTML dan dikonversi menjadi tipe
+                        <code>Number</code> agar dapat dilakukan operasi matematika.
+                    </p>
+
+                    <h3 class="h5 mt-4">3. Validasi Input</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>if (jumlahProduksi &lt;= 0) {
+    output.textContent = "Jumlah produksi tidak valid.";
+    return;
+}</code></pre>
+                    </div>
+                    <p>
+                        Digunakan untuk memastikan jumlah produksi tidak nol atau negatif.
+                        Jika tidak valid, proses dihentikan dengan <code>return</code>.
+                    </p>
+
+                    <h3 class="h5 mt-4">4. Perhitungan Biaya</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>let totalPerUnit =
+(biayaBahanBaku + biayaTenagaKerja + biayaOverhead) / jumlahProduksi;</code></pre>
+                    </div>
+                    <p class="fw-semibold">
+                        Total per Unit =
+                        (Bahan Baku + Tenaga Kerja + Overhead) ÷ Jumlah Produksi
+                    </p>
+
+                    <h3 class="h5 mt-4">5. Logika If / Else</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>let status;
+
+if (jumlahProduksi &lt; 100) {
+    status = "Biaya Tinggi (Ekonomi Skala Kecil)";
+} else {
+    status = "Biaya Efisien";
+}</code></pre>
+                    </div>
+                    <p>
+                        Struktur percabangan digunakan untuk menentukan status biaya
+                        berdasarkan jumlah produksi.
+                    </p>
+
+                    <h3 class="h5 mt-4">6. Menampilkan Output</h3>
+                    <div class="bg-light p-3 border rounded">
+                        <pre><code>let output = document.getElementById("hasilOutput");
+
+output.innerHTML =
+"Total Biaya per Unit: Rp " +
+totalPerUnit.toLocaleString("id-ID", { minimumFractionDigits: 2 }) +
+"&lt;br&gt;Status Produksi: " + status;</code></pre>
+                    </div>
+                    <p>
+                        Hasil ditampilkan ke dalam elemen dengan ID
+                        <code>hasilOutput</code> menggunakan <code>innerHTML</code>.
+                    </p>
+
                 </div>
-            </section>
+            </article>
+        </section>
 
-            <form>
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Input Data Produksi</h5>
-                        <p class="card-title mb-3">Ini adalah form input yang variabel nya terkoneksi dengan javascript
-                            dan
-                            otomatis terhitung setelah melakukan action button submit</p>
-                        <form id="formProduksi">
+        <section class="mb-5">
+            <article class="card shadow-sm">
+                <div class="card-body">
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="bahanBaku" class="form-label">Biaya Bahan Baku (Rp)</label>
-                                    <input type="number" class="form-control" id="bahanBaku" required>
-                                </div>
+                    <h2 class="h4 fw-bold text-center mb-4">Input Data Produksi</h2>
 
-                                <div class="col-md-6 mb-3">
-                                    <label for="tenagaKerja" class="form-label">Biaya Tenaga Kerja (Rp)</label>
-                                    <input type="number" class="form-control" id="tenagaKerja" required>
-                                </div>
+                    <form id="formProduksi">
 
-                                <div class="col-md-6 mb-3">
-                                    <label for="overhead" class="form-label">Biaya Overhead (Rp)</label>
-                                    <input type="number" class="form-control" id="overhead" required>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label for="jumlahProduksi" class="form-label">Jumlah Produksi (Unit)</label>
-                                    <input type="number" class="form-control" id="jumlahProduksi" required>
-                                </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="bahanBaku" class="form-label">Biaya Bahan Baku (Rp)</label>
+                                <input type="number" class="form-control" id="bahanBaku" required>
                             </div>
 
+                            <div class="col-md-6">
+                                <label for="tenagaKerja" class="form-label">Biaya Tenaga Kerja (Rp)</label>
+                                <input type="number" class="form-control" id="tenagaKerja" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="overhead" class="form-label">Biaya Overhead (Rp)</label>
+                                <input type="number" class="form-control" id="overhead" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="jumlahProduksi" class="form-label">Jumlah Produksi (Unit)</label>
+                                <input type="number" class="form-control" id="jumlahProduksi" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
                             <button type="submit" class="btn btn-primary w-100">
                                 Hitung Biaya
                             </button>
+                        </div>
 
-                        </form>
-                    </div>
+                    </form>
+
                 </div>
-            </form>
+            </article>
+        </section>
 
-            <section>
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Hasil Perhitungan</h5>
-                        <p class="text-muted">
-                            Hasil akan muncul di sini dan di console log setelah perhitungan dilakukan
-                        </p>
-                        <div id="hasilOutput" class="fw-semibold"></div>
-                    </div>
+        <!-- HASIL -->
+        <section>
+            <article class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="h4 fw-bold mb-3">Hasil Perhitungan</h2>
+                    <p class="text-muted">
+                        Hasil akan muncul di sini dan juga di console browser.
+                    </p>
+                    <div id="hasilOutput" class="fw-semibold fs-5"></div>
                 </div>
-            </section>
-
-        </div>
-    </section>
+            </article>
+        </section>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="kalkulator_biaya_produksi.js"></script>
 
 </body>

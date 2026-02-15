@@ -7,8 +7,7 @@ document.getElementById("formProduksi").addEventListener("submit", function (eve
     let biayaOverhead = Number(document.getElementById("overhead").value);
     let jumlahProduksi = Number(document.getElementById("jumlahProduksi").value);
 
-    // field output hasil dari pemrosesan
-    let output = document.getElementById("hasilOutput");
+
     // Validasi agar jumlah nya tidak negatif
     if (jumlahProduksi <= 0) {
         output.textContent = "Jumlah produksi tidak valid.";
@@ -27,6 +26,8 @@ document.getElementById("formProduksi").addEventListener("submit", function (eve
         status = "Biaya Efisien";
     }
 
+    // Field output hasil dari pemrosesan
+    let output = document.getElementById("hasilOutput");
     // Untuk menampilkan di website
     output.innerHTML =
         "Total Biaya per Unit: Rp " + totalPerUnit.toLocaleString("id-ID", { minimumFractionDigits: 2 }) +

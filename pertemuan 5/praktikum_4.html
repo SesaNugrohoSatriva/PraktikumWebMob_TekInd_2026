@@ -5,11 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praktikum 4 Pertemuan 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Praktikum 4 Pertemuan 5</h1>
+<body class="bg-light">
+
+    <header class="bg-secondary text-white py-4 shadow">
+        <div class="container">
+            <h1 class="mb-1">Praktikum 4 Pertemuan 5</h1>
+            <p class="mb-0">Dibuat oleh Sesa Nugroho Satriva (23051430031)</p>
+        </div>
+    </header>
+
+    <section class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="mb-3">Array of Object dan Logika Re-Order</h4>
+
+                <p>
+                    Program ini menggunakan <strong>array yang berisi object</strong>
+                    untuk merepresentasikan data material di gudang. Setiap object
+                    memiliki properti <em>kode</em>, <em>nama</em>, <em>stock</em>,
+                    dan <em>satuan</em>.
+                </p>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>let gudangMaterial = [
+    { kode: "MAT-01", nama: "Baja Ringan", stock: "50", satuan:"Batang"},
+    { kode: "MAT-02", nama: "Plastik ABS", stock: "120", satuan:"Kg"},
+    { kode: "MAT-03", nama: "Oli Mesin", stock: "10", satuan:"Liter"}
+];</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Iterasi dilakukan menggunakan method <code>forEach()</code>
+                    untuk menampilkan setiap data material.
+                </p>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>gudangMaterial.forEach(function(item){
+    console.log(item.kode + " - " + item.nama + 
+                " : " + item.stock + " " + item.satuan);
+});</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Di dalam perulangan terdapat logika <strong>Re-Order</strong>.
+                    Jika stok kurang dari 20, maka sistem memberikan peringatan
+                    untuk segera melakukan Purchase Order (PO).
+                </p>
+
+                <div class="alert alert-danger mt-3">
+                    Hasil laporan stok dan peringatan dapat dilihat melalui
+                    Console Browser (F12 → Console).
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <script src="praktikum_4.js"></script>
+
 </body>
 
 </html>

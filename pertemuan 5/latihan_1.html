@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latihan 1 Pertemuan 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Latihan 1 Pertemuan 5</h1>
+
+<body class="bg-light">
+
+    <header class="bg-primary text-white py-4 shadow">
+        <div class="container">
+            <h1 class="mb-1">Latihan 1 Pertemuan 5</h1>
+            <p class="mb-0">Dibuat oleh Sesa Nugroho Satriva (23051430031)</p>
+        </div>
+    </header>
+
+    <section class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4 class="mb-3">Function Perhitungan Lingkaran</h4>
+
+                <p>
+                    Program ini menggunakan fungsi <code>hitungLingkaran()</code>
+                    untuk menghitung <strong>luas</strong> dan <strong>keliling</strong>
+                    lingkaran berdasarkan nilai jari-jari.
+                </p>
+
+                <p>
+                    Rumus yang digunakan:
+                </p>
+
+                <ul>
+                    <li>Luas = π × r²</li>
+                    <li>Keliling = 2 × π × r</li>
+                </ul>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>function hitungLingkaran(jariJari) {
+    const phi = Math.PI;
+    const luas = phi * jariJari * jariJari;
+    const keliling = 2 * phi * jariJari;
+
+    return {
+        luas: luas,
+        keliling: keliling
+    };
+}</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Fungsi mengembalikan object yang berisi nilai luas dan keliling.
+                    Nilai tersebut kemudian ditampilkan pada console dengan
+                    pembulatan dua angka desimal menggunakan <code>toFixed(2)</code>.
+                </p>
+
+                <div class="alert alert-success mt-3">
+                    Hasil perhitungan dapat dilihat melalui Console Browser (F12 → Console).
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <script src="latihan_1.js"></script>
-    
+
 </body>
+
 </html>

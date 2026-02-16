@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Tagihan Listrik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <header class="bg-primary bg-gradient text-white py-4 shadow-sm">
+        <div class="container">
+            <h1 class="h3 mb-1 fw-semibold">Kalkulator Tagihan Listrik</h1>
+            <p class="mb-0 small">Dibuat oleh Sesa Nugroho Satriva (23051430031)</p>
+        </div>
+    </header>
+
+    <main class="py-5">
+
+        <section class="container mb-5">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <h4 class="fw-semibold mb-3">Simulasi Perhitungan Konsumsi Listrik</h4>
+
+                    <p class="text-muted">
+                        Program ini menghitung total konsumsi listrik dalam satuan
+                        <strong>kWh</strong> berdasarkan input
+                        <code>Daya (Watt)</code> dan <code>Jam Pemakaian</code>.
+                        Perhitungan dilakukan secara <em>real-time</em> menggunakan
+                        event <code>input</code> pada JavaScript.
+                    </p>
+
+                    <hr class="my-4">
+
+                    <form aria-label="Form Kalkulator Listrik">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="inputDaya" class="form-label fw-medium">Daya (Watt)</label>
+                                <input type="number" class="form-control form-control-lg" id="inputDaya"
+                                    placeholder="Contoh: 900" min="0">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputJam" class="form-label fw-medium">Jam Pemakaian</label>
+                                <input type="number" class="form-control form-control-lg" id="inputJam"
+                                    placeholder="Contoh: 5" min="0">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="alert alert-info mt-4 rounded-3 border-0 shadow-sm">
+                        <h5 id="hasilKwh" class="mb-2 fw-semibold">Total kWh: 0</h5>
+                        <h5 id="hasilBiaya" class="mb-0 fw-semibold">Estimasi Biaya: Rp 0</h5>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body p-4">
+
+                    <h5 class="fw-semibold mb-3">Penjelasan Kode JavaScript</h5>
+
+                    <p class="text-muted">
+                        Program mengambil elemen input dan hasil menggunakan
+                        <code>getElementById()</code>.
+                    </p>
+
+                    <div class="bg-light p-3 rounded-3 border">
+                        <pre class="mb-0"><code>const inputDaya = document.getElementById('inputDaya');
+const inputJam = document.getElementById('inputJam');
+const hasilKwh = document.getElementById('hasilKwh');
+const hasilBiaya = document.getElementById('hasilBiaya');</code></pre>
+                    </div>
+
+                    <p class="mt-4 text-muted">
+                        Function <code>hitungListrik()</code> menghitung:
+                        <br>
+                        <strong>kWh = (Daya × Jam) / 1000</strong><br>
+                        <strong>Biaya = kWh × 1500</strong>
+                    </p>
+
+                    <div class="bg-light p-3 rounded-3 border">
+                        <pre class="mb-0"><code>function hitungListrik() {
+    const daya = parseFloat(inputDaya.value) || 0;
+    const jam = parseFloat(inputJam.value) || 0;
+
+    const totalKwh = (daya * jam) / 1000;
+    const totalBiaya = totalKwh * 1500;
+
+    hasilKwh.textContent = "Total kWh: " + totalKwh.toFixed(2);
+    hasilBiaya.textContent =
+        "Estimasi Biaya: Rp " + totalBiaya.toLocaleString('id-ID');
+}</code></pre>
+                    </div>
+
+                    <p class="mt-4 text-muted">
+                        Event <code>input</code> membuat perhitungan berjalan otomatis
+                        tanpa tombol submit.
+                    </p>
+
+                    <div class="bg-light p-3 rounded-3 border">
+                        <pre class="mb-0"><code>inputDaya.addEventListener('input', hitungListrik);
+inputJam.addEventListener('input', hitungListrik);</code></pre>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-top py-3 mt-5">
+        <div class="container text-center">
+            <small class="text-muted">© 2026 - Sesa Nugroho Satriva</small>
+        </div>
+    </footer>
+
+    <script src="kalkulatorTagihanListrik.js">
+    </script>
+
+</body>
+
+</html>

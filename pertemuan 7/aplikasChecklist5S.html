@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Checklist Audit 5S</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <header class="bg-primary text-white py-4 mb-5 shadow-sm">
+        <div class="container text-center">
+            <h1 class="h3 mb-1">Aplikasi Checklist Audit 5S</h1>
+            <p class="mb-0">
+                Dibuat oleh Sesa Nugroho Satriva (23051430031)
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row g-4">
+            <section class="container mb-5">
+                <article class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        Aplikasi Audit 5S
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <p class="mb-1">
+                                Form di sebelah kiri digunakan untuk melakukan audit 5S
+                                (Seiri, Seiton, Seiso, Seiketsu, Shitsuke).
+                            </p>
+                            <p class="mb-0">
+                                Setiap audit akan dihitung skornya berdasarkan jumlah
+                                checklist yang dicentang, kemudian disimpan ke
+                                LocalStorage dan ditampilkan pada tabel riwayat.
+                            </p>
+                        </div>
+
+                        <div class="row g-4">
+                            <section class="col-md-4">
+                                <form id="formAudit">
+
+                                    <div class="mb-3">
+                                        <label for="auditor" class="form-label fw-semibold">
+                                            Nama Auditor
+                                        </label>
+                                        <input type="text" id="auditor" class="form-control"
+                                            placeholder="Masukkan nama auditor" required>
+                                    </div>
+
+                                    <fieldset class="mb-3">
+                                        <legend class="fs-6 fw-semibold">
+                                            Checklist 5S
+                                        </legend>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="seiri">
+                                            <label class="form-check-label" for="seiri">Seiri</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="seiton">
+                                            <label class="form-check-label" for="seiton">Seiton</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="seiso">
+                                            <label class="form-check-label" for="seiso">Seiso</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="seiketsu">
+                                            <label class="form-check-label" for="seiketsu">Seiketsu</label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="shitsuke">
+                                            <label class="form-check-label" for="shitsuke">Shitsuke</label>
+                                        </div>
+                                    </fieldset>
+
+                                    <button type="submit" class="btn btn-success w-100">
+                                        Simpan Audit
+                                    </button>
+
+                                    <button type="button" id="btnHapusSemua" class="btn btn-outline-danger w-100 mt-2">
+                                        Hapus Semua Riwayat
+                                    </button>
+
+                                </form>
+                            </section>
+
+                            <section class="col-md-8">
+                                <h2 class="h6 fw-semibold mb-3">Riwayat Audit</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped mb-0" style="table-layout: fixed;">
+                                        <thead class="table-primary text-center">
+                                            <tr>
+                                                <th>Tanggal</th>
+                                                <th>Auditor</th>
+                                                <th>Skor (%)</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabelBody" class="align-middle text-center">
+                                            <!-- Data dari JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="container mt-5">
+                <h2 class="h4 mb-4">Penjelasan JavaScript Aplikasi Audit 5S</h2>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        1. Seleksi Elemen & Inisialisasi
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Bagian ini digunakan untuk mengambil elemen HTML yang akan
+                            dimanipulasi oleh JavaScript serta membuat kunci penyimpanan
+                            LocalStorage.
+                        </p>
+
+                        <pre><code>// Seleksi Elemen
+const formAudit = document.getElementById('formAudit');
+const tabelBody = document.getElementById('tabelBody');
+const btnHapusSemua = document.getElementById('btnHapusSemua');
+
+const STORAGE_KEY = 'DATA_AUDIT_5S';</code></pre>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        2. Load Data Saat Halaman Dibuka
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Event <code>DOMContentLoaded</code> memastikan data yang
+                            tersimpan di LocalStorage langsung ditampilkan saat halaman dibuka.
+                        </p>
+
+                        <pre><code>document.addEventListener('DOMContentLoaded', function () {
+    loadDataFromStorage();
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-warning">
+                        3. Proses Submit & Perhitungan Skor
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Saat form dikirim, sistem menghitung jumlah checklist yang
+                            dicentang, kemudian menghitung skor dalam persen.
+                        </p>
+
+                        <pre><code>formAudit.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const auditor = document.getElementById('auditor').value;
+
+    const checklist = [
+        document.getElementById('seiri').checked,
+        document.getElementById('seiton').checked,
+        document.getElementById('seiso').checked,
+        document.getElementById('seiketsu').checked,
+        document.getElementById('shitsuke').checked
+    ];
+
+    const totalCentang = checklist.filter(item => item).length;
+    const skor = (totalCentang / 5) * 100;
+
+    const dataBaru = {
+        id: Date.now(),
+        tanggal: new Date().toLocaleDateString(),
+        auditor: auditor,
+        skor: skor
+    };
+
+    saveData(dataBaru);
+    formAudit.reset();
+    loadDataFromStorage();
+});</code></pre>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        4. Penyimpanan & Render Data
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Data audit disimpan ke LocalStorage dan ditampilkan kembali
+                            dalam tabel menggunakan DOM manipulation.
+                        </p>
+
+                        <pre><code>function saveData(data) {
+    let dataLama = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    dataLama.push(data);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataLama));
+}
+
+function loadDataFromStorage() {
+    let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    tabelBody.innerHTML = '';
+
+    data.forEach(function (item) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            &lt;td&gt;${item.tanggal}&lt;/td&gt;
+            &lt;td&gt;${item.auditor}&lt;/td&gt;
+            &lt;td&gt;${item.skor}%&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button class="btn btn-sm btn-danger"
+                onclick="hapusData(${item.id})"&gt;Hapus&lt;/button&gt;
+            &lt;/td&gt;
+        `;
+        tabelBody.appendChild(row);
+    });
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-danger text-white">
+                        5. Hapus Data
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Pengguna dapat menghapus satu data atau seluruh riwayat audit.
+                            Setelah penghapusan, tabel akan diperbarui kembali.
+                        </p>
+
+                        <pre><code>window.hapusData = function (id) {
+    if (confirm('Yakin ingin menghapus data audit ini?')) {
+        let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let dataBaru = data.filter(item => item.id !== id);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataBaru));
+        loadDataFromStorage();
+    }
+}
+
+btnHapusSemua.addEventListener('click', function () {
+    if (confirm('Semua riwayat audit akan dihapus permanen!')) {
+        localStorage.removeItem(STORAGE_KEY);
+        loadDataFromStorage();
+    }
+});</code></pre>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <script src="aplikasChecklist5S.js"></script>
+
+</body>
+
+</html>

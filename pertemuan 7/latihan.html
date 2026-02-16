@@ -47,8 +47,15 @@ w-100 mt-2">Hapus Semua Data</button>
         <!-- Kolom Kanan: Tabel Data -->
         <div class="col-md-8">
             <h3>Riwayat Produksi</h3>
-            <div class="mb-3">
+            <!-- Membungkus input dan button agar rapi -->
+            <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+                <!-- Membuat input type text untuk mencari nama operator dengan id : inputCari (latihan 1)  -->
                 <input type="text" id="inputCari" class="form-control" placeholder="Cari Nama Operator...">
+                <!-- Membuat button dengan id btnSortJumlah untuk mengurutkan data dari jumlah terbesar(latihan 2) -->
+                <button id="btnSortJumlah" class="btn btn-success btn-sm flex-shrink-0">
+                    Sortir berdasarkan Jumlah (Terbesar)
+                </button>
+
             </div>
             <!-- Menambahkan style table-layout:fixed agar ketika di lakukan inputCari maka layout tabel tidak berubah (latihan 1) -->
             <table class="table table-bordered table-striped" style="table-layout: fixed;">

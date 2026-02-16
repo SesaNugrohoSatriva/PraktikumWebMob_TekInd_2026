@@ -4,6 +4,8 @@ const tabelBody = document.getElementById('tabelBody');
 const btnHapusSemua = document.getElementById('btnHapusSemua');
 // Seleksi elemen inputCari (latihan 1)
 const inputCari = document.getElementById('inputCari');
+// Seleksi elemen btnSortJumlah (latihan 2)\
+const btnSortJumlah = document.getElementById('btnSortJumlah');
 // Kunci untuk LocalStorage
 const STORAGE_KEY = 'DATA_PRODUKSI_INDUSTRI';
 // Fungsi Load Data saat halaman dibuka
@@ -126,4 +128,18 @@ inputCari.addEventListener('input', function () {
     );
 
     renderTable(hasilFilter);
+});
+
+// Membuat evenListener btnSortJumlah untuk mengurutkan data (latihan 2)
+btnSortJumlah.addEventListener('click', function () {
+    const keyword = inputCari.value.toLowerCase();
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    // Filter dulu sesuai kondisi input saat ini
+    const hasilFilter = data.filter(item =>
+        item.operator.toLowerCase().includes(keyword)
+    );
+    // Urutkan hasil filter
+    const dataUrut = hasilFilter.sort((a, b) => b.jumlah - a.jumlah);
+
+    renderTable(dataUrut);
 });

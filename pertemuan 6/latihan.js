@@ -3,6 +3,7 @@ const btnStart = document.getElementById('btnStart');
 const btnStop = document.getElementById('btnStop');
 const btnReset = document.getElementById('btnReset');
 const statusIndicator = document.getElementById('statusIndicator');
+// Seleksi elemen dom untuk suhuMesin(latihan 2)
 const suhuMesin = document.getElementById('suhuMesin');
 const teksStatus = statusIndicator.querySelector('strong'); // Mengambil elemen <strong> di dalam alert
 // Membuat seleksi elemen DOM untuk btnMaintenance dan card(latihan 1)
@@ -68,6 +69,16 @@ btnMaintenance.addEventListener('click', function () {
     // Nonaktifkan tombol START & STOP
     btnStart.disabled = true;
     btnStop.disabled = true;
+});
+// Even listener untuk mouseover suhuMesin (latihan 2)
+suhuMesin.addEventListener('mouseover', function () {
+    this.style.fontWeight = 'bold';
+    this.style.color = 'blue';
+});
+// Even listener untuk mouseout suhuMesin(latihan 2)
+suhuMesin.addEventListener('mouseout', function () {
+    this.style.fontWeight = 'normal';
+    this.style.color = '';
 });
 
 

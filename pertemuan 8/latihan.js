@@ -79,8 +79,19 @@ btnTambah.addEventListener('click', function () {
 
 
 function renderData(data) {
-    data.forEach(function (karyawan) {
-        // Buat elemen card Bootstrap
+
+    // membuat filter untuk menampilkan karyawan dengan kota yang mengandung huruf "s" (latihan 2)
+    const dataFiltered = data.filter(function (karyawan) {
+        return karyawan.address.city
+            .toLowerCase()
+            .includes('s');
+    });
+
+    console.log("Setelah filter:", dataFiltered);
+
+    // render hasil filter (latihan 2)
+    dataFiltered.forEach(function (karyawan) {
+
         const col = document.createElement('div');
         col.className = 'col-md-4 mb-3';
 
@@ -97,9 +108,6 @@ function renderData(data) {
                     <p class="card-text">
                         <small>Kota: ${karyawan.address.city}</small>
                     </p>
-                    <a href="" class="btn btn-sm btn-outline-primary">
-                        Detail Profil
-                    </a>
                 </div>
             </div>
         `;

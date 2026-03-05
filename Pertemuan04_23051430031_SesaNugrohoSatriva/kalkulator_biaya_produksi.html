@@ -115,17 +115,17 @@ totalPerUnit.toLocaleString("id-ID", { minimumFractionDigits: 2 }) +
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="bahanBaku" class="form-label">Biaya Bahan Baku (Rp)</label>
-                                <input type="number" class="form-control" id="bahanBaku" required>
+                                <input type="text" class="form-control format-rupiah" id="bahanBaku" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="tenagaKerja" class="form-label">Biaya Tenaga Kerja (Rp)</label>
-                                <input type="number" class="form-control" id="tenagaKerja" required>
+                                <input type="text" class="form-control format-rupiah" id="tenagaKerja" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="overhead" class="form-label">Biaya Overhead (Rp)</label>
-                                <input type="number" class="form-control" id="overhead" required>
+                                <input type="text" class="form-control format-rupiah" id="overhead" required>
                             </div>
 
                             <div class="col-md-6">
@@ -161,7 +161,7 @@ totalPerUnit.toLocaleString("id-ID", { minimumFractionDigits: 2 }) +
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script src="kalkulator_biaya_produksi.js"></script>
 
 </body>

@@ -2,9 +2,11 @@
 // 1. Variabel & Tipe Data
 let namaMesin = "CNC-Mazak-01"; // String
 let targetHarian = 500; // Number
+let isOperasional = true; // Boolean
 // Menampilkan ke console browser (Tekan F12 -> Console)
 console.log("Mesin: " + namaMesin);
 console.log("Target: " + targetHarian);
+
 // 2. Operator Aritmatika
 let produksiPagi = 200;
 let produksiSiang = 150;

@@ -40,18 +40,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Logika status produksi
         let status;
+        let statusClass;
         if (jumlahProduksi < 100) {
             status = "Biaya Tinggi (Ekonomi Skala Kecil)";
+            statusClass = "status-tinggi";
         } else {
             status = "Biaya Efisien";
+            statusClass = "status-efisien";
         }
 
         // Tampilkan ke website
         output.innerHTML =
             "Total Biaya per Unit: Rp " +
             totalPerUnit.toLocaleString("id-ID", { minimumFractionDigits: 2 }) +
-            "<br>Status Produksi: " + status;
-
+            "<br>Status Produksi: <span class='" + statusClass + "'>" + status + "</span>";
+            
         // Tampilkan ke console
         console.log("===== HASIL PERHITUNGAN =====");
         console.log("Biaya Bahan Baku: Rp", biayaBahanBaku.toLocaleString("id-ID"));

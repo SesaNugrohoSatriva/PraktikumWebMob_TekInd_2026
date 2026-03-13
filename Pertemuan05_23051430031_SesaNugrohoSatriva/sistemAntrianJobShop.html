@@ -60,15 +60,124 @@
                     menggunakan method <code>push()</code>, kemudian function
                     dipanggil kembali untuk menampilkan daftar terbaru.
                 </p>
+                <p class="mt-3">
+                    Selain menampilkan data pada console, program juga
+                    menampilkan daftar antrian pada halaman web. Hal ini
+                    dilakukan dengan memanfaatkan manipulasi DOM menggunakan
+                    <code>document.getElementById()</code> dan membuat elemen
+                    <code>&lt;li&gt;</code> secara dinamis untuk setiap job
+                    yang ada di dalam array.
+                </p>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>function tampilkanAntrian(){
+const list = document.getElementById("listAntrian");
+
+antrianMesin.forEach(job =&gt; {
+    const item = document.createElement("li");
+    item.textContent =
+    "Job " + job.idJob +
+    " - " + job.namaProses +
+    " (" + job.durasi + " menit)";
+    list.appendChild(item);
+});
+}</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Program juga menyediakan form untuk menambahkan job baru.
+                    Ketika tombol <strong>Tambah</strong> ditekan, function
+                    <code>tambahJob()</code> akan dijalankan. Function ini
+                    membaca nilai dari input <code>idJob</code>,
+                    <code>namaProses</code>, dan <code>durasi</code> menggunakan
+                    <code>document.getElementById()</code>.
+                </p>
+
+                <div class="bg-light p-3 border rounded">
+                    <pre><code>function tambahJob(){
+    const idJob = document.getElementById("idJob");
+    const namaProses = document.getElementById("namaProses");
+    const durasi = document.getElementById("durasi");
+
+    antrianMesin.push({
+        idJob: idJob.value,
+        namaProses: namaProses.value,
+        durasi: durasi.value
+    });
+    console.log("--- Setelah Menambahkan Job dari Form ---");
+    prosesAntrian(antrianMesin); // update console
+
+    tampilkanAntrian();
+    
+    idJob.value = "";
+    namaProses.value = "";
+    durasi.value = "";
+}</code></pre>
+                </div>
+
+                <p class="mt-3">
+                    Data yang diperoleh dari input kemudian dimasukkan ke dalam
+                    array <code>antrianMesin</code> menggunakan method
+                    <code>push()</code>. Setelah data berhasil ditambahkan,
+                    function <code>tampilkanAntrian()</code> dipanggil kembali
+                    untuk memperbarui daftar antrian yang ditampilkan pada
+                    halaman. Terakhir, nilai pada input akan dikosongkan kembali
+                    agar pengguna dapat menambahkan job berikutnya dengan mudah.
+                </p>
+
 
                 <div class="alert alert-warning mt-3">
-                    Hasil simulasi dapat dilihat melalui Console Browser (F12 → Console).
+                    Hasil simulasi dapat dilihat melalui Console Browser (F12 → Console) dan pada halaman.
                 </div>
 
             </div>
         </div>
     </section>
+    <section>
+        <div class="container my-4">
 
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="mb-3">Tambah Job Baru</h5>
+
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-3">
+                            <label class="form-label">ID Job</label>
+                            <input type="text" id="idJob" class="form-control" placeholder="Contoh: J03">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Nama Proses</label>
+                            <input type="text" id="namaProses" class="form-control" placeholder="Contoh: Grinding">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Durasi (menit)</label>
+                            <input type="number" id="durasi" class="form-control" placeholder="Contoh: 40">
+                        </div>
+
+                        <div class="col-md-2 d-grid">
+                            <button onclick="tambahJob()" class="btn btn-primary">
+                                Tambah Job
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+
+                    <h5 class="mb-3">Daftar Antrian Mesin</h5>
+
+                    <ul id="listAntrian" class="list-group"></ul>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
     <script src="sistemAntrianJobShop.js"></script>
 
 </body>

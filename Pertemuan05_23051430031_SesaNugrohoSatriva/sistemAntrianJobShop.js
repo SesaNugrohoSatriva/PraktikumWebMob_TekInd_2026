@@ -30,3 +30,48 @@ console.log("--- Setelah Menambahkan Job Baru ---");
 
 // Panggil kembali function
 prosesAntrian(antrianMesin);
+
+// Function untuk menampilkan ke halaman
+function tampilkanAntrian() {
+
+    const list = document.getElementById("listAntrian");
+    list.innerHTML = "";
+
+    antrianMesin.forEach(job => {
+
+        const item = document.createElement("li");
+        item.className = "list-group-item";
+
+        item.textContent =
+            "Job " + job.idJob +
+            " - " + job.namaProses +
+            " (" + job.durasi + " menit)";
+
+        list.appendChild(item);
+    });
+}
+
+// Function push dari input halaman
+function tambahJob() {
+
+    const idJob = document.getElementById("idJob");
+    const namaProses = document.getElementById("namaProses");
+    const durasi = document.getElementById("durasi");
+
+    antrianMesin.push({
+        idJob: idJob.value,
+        namaProses: namaProses.value,
+        durasi: durasi.value
+    });
+    console.log("--- Setelah Menambahkan Job dari Form ---");
+    prosesAntrian(antrianMesin); 
+
+    tampilkanAntrian();
+
+    // reset input
+    idJob.value = "";
+    namaProses.value = "";
+    durasi.value = "";
+}
+
+tampilkanAntrian();

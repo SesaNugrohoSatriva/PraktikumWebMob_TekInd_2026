@@ -104,6 +104,9 @@ function renderData(data, isNew = false) {
                     <p class="card-text text-muted mb-1">Email: ${karyawan.email}</p>
                     <p class="card-text mb-1">Perusahaan: ${karyawan.company.name}</p>
                     <p class="card-text"><small>Kota: ${karyawan.address.city}</small></p>
+                    <button class="btn btn-sm btn-outline-primary" onclick="cariKaryawan(${karyawan.id})">
+                        Detail Profil
+                    </button>
                 </div>
             </div>
         `;
@@ -114,4 +117,42 @@ function renderData(data, isNew = false) {
             container.appendChild(col);
         }
     });
+}
+
+async function cariKaryawan(id) {
+    try {
+        console.log(`Mencari data ID: ${id}...`);
+
+        const response = await fetch(
+            `https://jsonplaceholder.typicode.com/users/${id}`
+        );
+
+        if (!response.ok) {
+            throw new Error('Data tidak ditemukan');
+        }
+
+        const data = await response.json();
+        console.log('Ditemukan:', data);
+
+        // 1. Masukkan data yang didapat ke dalam elemen-elemen di HTML (Modal)
+        document.getElementById('detailNama').innerText = data.name;
+        document.getElementById('detailUsername').innerText = data.username;
+        document.getElementById('detailEmail').innerText = data.email;
+        document.getElementById('detailTelepon').innerText = data.phone;
+        document.getElementById('detailWebsite').innerText = data.website;
+        document.getElementById('detailPerusahaan').innerText = data.company.name;
+
+        // Menggabungkan alamat agar lebih rapi
+        document.getElementById('detailAlamat').innerText =
+            `${data.address.street}, ${data.address.suite}, ${data.address.city}, ${data.address.zipcode}`;
+
+        // 2. Memunculkan Pop-up Modal menggunakan sintaks bawaan Bootstrap JS
+        const modalElement = document.getElementById('modalDetail');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+
+    } catch (error) {
+        console.error(error);
+        alert("Terjadi kesalahan: " + error.message);
+    }
 }

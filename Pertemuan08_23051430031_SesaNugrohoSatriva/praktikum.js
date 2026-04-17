@@ -59,9 +59,9 @@ function renderData(data) {
                     <p class="card-text">
                         <small>Kota: ${karyawan.address.city}</small>
                     </p>
-                    <a href="" class="btn btn-sm btn-outline-primary">
+                   <button class="btn btn-sm btn-outline-primary" onclick="cariKaryawan(${karyawan.id})">
                         Detail Profil
-                    </a>
+                    </button>
                 </div>
             </div>
         `;
@@ -86,14 +86,27 @@ async function cariKaryawan(id) {
         const data = await response.json();
         console.log('Ditemukan:', data);
 
-        alert(
-            `Ditemukan: ${data.name} - bekerja di ${data.company.name}`
-        );
+        // 1. Masukkan data yang didapat ke dalam elemen-elemen di HTML (Modal)
+        document.getElementById('detailNama').innerText = data.name;
+        document.getElementById('detailUsername').innerText = data.username;
+        document.getElementById('detailEmail').innerText = data.email;
+        document.getElementById('detailTelepon').innerText = data.phone;
+        document.getElementById('detailWebsite').innerText = data.website;
+        document.getElementById('detailPerusahaan').innerText = data.company.name;
+
+        // Menggabungkan alamat agar lebih rapi
+        document.getElementById('detailAlamat').innerText =
+            `${data.address.street}, ${data.address.suite}, ${data.address.city}, ${data.address.zipcode}`;
+
+        // 2. Memunculkan Pop-up Modal menggunakan sintaks bawaan Bootstrap JS
+        const modalElement = document.getElementById('modalDetail');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+
     } catch (error) {
         console.error(error);
-        alert(error.message);
+        alert("Terjadi kesalahan: " + error.message);
     }
 }
-
 // Contoh pemanggilan: cariKaryawan(2);
 // Anda bisa memanggil fungsi ini lewat console browser untuk tes.

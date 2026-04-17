@@ -1,8 +1,7 @@
 const btnLoad = document.getElementById('btnLoad');
 const container = document.getElementById('containerKaryawan');
 const loading = document.getElementById('loading');
-// Membuat const btnTambah untuk tombol tambah karyawan baru(Latihan 1)
-const btnTambah = document.getElementById('btnTambah');
+const formTambah = document.getElementById('formTambahKaryawan'); // Menangkap form di dalam modal
 
 // Endpoint API (Simulasi Database)
 const API_URL = 'https://jsonplaceholder.typicode.com/users';
@@ -19,7 +18,6 @@ btnLoad.addEventListener('click', function () {
             if (!response.ok) {
                 throw new Error('Gagal mengambil data');
             }
-
             // Parsing data JSON
             return response.json();
         })
@@ -31,7 +29,7 @@ btnLoad.addEventListener('click', function () {
         .catch(function (error) {
             // Jika ada error (misal putus internet)
             container.innerHTML = `
-                <div class="alert alert-danger">
+                <div class="alert alert-danger w-100">
                     Error: ${error.message}
                 </div>
             `;
@@ -41,17 +39,20 @@ btnLoad.addEventListener('click', function () {
             loading.classList.add('d-none');
         });
 });
-// Membuat btnTambah untuk menambahkan data karyawan baru(Latihan 1)
-btnTambah.addEventListener('click', function () {
 
+// Event Listener untuk Form (Latihan 1 Dimodifikasi agar Dinamis)
+formTambah.addEventListener('submit', function (e) {
+    e.preventDefault(); // Mencegah halaman refresh
+
+    // Mengambil data dari inputan form user
     const dataBaru = {
-        name: "Budi Santoso",
-        email: "budi@email.com",
+        name: document.getElementById('inputNama').value,
+        email: document.getElementById('inputEmail').value,
         company: {
-            name: "PT Maju Mundur"
+            name: document.getElementById('inputPerusahaan').value
         },
         address: {
-            city: "Yogyakarta"
+            city: document.getElementById('inputKota').value
         }
     };
 
@@ -70,39 +71,52 @@ btnTambah.addEventListener('click', function () {
         })
         .then(function (result) {
             console.log("Response dari server:", result);
-            alert("Data berhasil dikirim (cek console)");
+
+            // Tutup modal form setelah sukses
+            const modalElement = document.getElementById('modalTambah');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+
+            // Kosongkan isian form
+            formTambah.reset();
+
+            // Tampilkan data baru ke layar (dikirim dengan status isNew = true)
+            renderData([result], true);
+            alert("Data berhasil dikirim dan ditambahkan ke halaman!");
         })
         .catch(function (error) {
             console.error(error);
+            alert("Terjadi kesalahan: " + error.message);
         });
 });
 
+// Parameter isNew ditambahkan untuk membedakan data API awal dan data baru dari form
+function renderData(data, isNew = false) {
+    let dataYangAkanDirender = data;
 
-function renderData(data) {
+    // Filter kota "s" HANYA berlaku untuk data awal dari API. 
+    // Data baru dari form akan di-bypass agar selalu tampil saat diuji coba.
+    if (!isNew) {
+        dataYangAkanDirender = data.filter(function (karyawan) {
+            return karyawan.address.city.toLowerCase().includes('s');
+        });
+        console.log("Setelah filter:", dataYangAkanDirender);
+    }
 
-    // membuat filter untuk menampilkan karyawan dengan kota yang mengandung huruf "s" (latihan 2)
-    const dataFiltered = data.filter(function (karyawan) {
-        return karyawan.address.city
-            .toLowerCase()
-            .includes('s');
-    });
-
-    console.log("Setelah filter:", dataFiltered);
-
-    // render hasil filter (latihan 2)
-    dataFiltered.forEach(function (karyawan) {
-
+    // render hasil
+    dataYangAkanDirender.forEach(function (karyawan) {
         const col = document.createElement('div');
         col.className = 'col-md-4 mb-3';
 
+        // Berikan border hijau (border-success) jika ini adalah data yang baru diinput
         col.innerHTML = `
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm ${isNew ? 'border-success border-2' : ''}">
                 <div class="card-body">
                     <h5 class="card-title">${karyawan.name}</h5>
-                    <p class="card-text text-muted">
+                    <p class="card-text text-muted mb-1">
                         Email: ${karyawan.email}
                     </p>
-                    <p class="card-text">
+                    <p class="card-text mb-1">
                         Perusahaan: ${karyawan.company.name}
                     </p>
                     <p class="card-text">
@@ -112,7 +126,12 @@ function renderData(data) {
             </div>
         `;
 
-        container.appendChild(col);
+        // Jika data baru, letakkan di urutan paling atas. Jika data lama, letakkan di bawah.
+        if (isNew) {
+            container.prepend(col);
+        } else {
+            container.appendChild(col);
+        }
     });
 }
 
@@ -140,6 +159,3 @@ async function cariKaryawan(id) {
         alert(error.message);
     }
 }
-
-// Contoh pemanggilan: cariKaryawan(2);
-// Anda bisa memanggil fungsi ini lewat console browser untuk tes.

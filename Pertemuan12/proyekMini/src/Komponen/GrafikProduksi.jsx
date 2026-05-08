@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 
 function GrafikProduksi() {

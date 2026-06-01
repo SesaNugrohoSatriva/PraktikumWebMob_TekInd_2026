@@ -5,6 +5,7 @@ import {
     Button,
     StyleSheet
 } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 export default function DetailScreen({
     route,
@@ -52,24 +53,36 @@ export default function DetailScreen({
                 </Text>
             </View>
 
-            <View style={{ marginTop: 20 }}>
-                <Button
-                    title="Lolos"
-                    onPress={() => {
-                        setStatus('Lolos');
-                        alert('Produk Lolos QC');
-                    }}
-                />
-            </View>
+            <View style={styles.dropdownContainer}>
+                <Text style={styles.label}>Pilih Status:</Text>
 
-            <View style={{ marginTop: 10 }}>
-                <Button
-                    title="Gagal"
-                    onPress={() => {
-                        setStatus('Gagal');
-                        alert('Produk Gagal QC');
+                <Picker
+                    selectedValue={status}
+                    onValueChange={(itemValue) => {
+                        setStatus(itemValue);
+
+                        if (itemValue === 'Lolos') {
+                            alert('Produk Lolos QC');
+                        } else if (itemValue === 'Gagal') {
+                            alert('Produk Gagal QC');
+                        }
                     }}
-                />
+                >
+                    <Picker.Item
+                        label="-- Pilih Status --"
+                        value=""
+                    />
+
+                    <Picker.Item
+                        label="Lolos"
+                        value="Lolos"
+                    />
+
+                    <Picker.Item
+                        label="Gagal"
+                        value="Gagal"
+                    />
+                </Picker>
             </View>
 
             <View style={{ marginTop: 20 }}>
@@ -114,6 +127,12 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: '#2c3e50',
+    },
+    dropdownContainer: {
+        marginTop: 20,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        elevation: 2,
     },
 
     label: {

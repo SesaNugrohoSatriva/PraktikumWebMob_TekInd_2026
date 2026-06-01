@@ -3,16 +3,45 @@ import {
     View,
     Text,
     Button,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 export default function DetailScreen({
     route,
-    navigation
+    navigation,
+    items,
+    setItems
 }) {
+
     const { itemData } = route.params;
-    const [status, setStatus] = useState('');
+
+    const [status, setStatus] = useState(itemData.status);
+
+    const handleStatusChange = (itemValue) => {
+
+        setStatus(itemValue);
+
+        setItems(
+            items.map((item) =>
+                item.id === itemData.id
+                    ? {
+                        ...item,
+                        status: itemValue
+                    }
+                    : item
+            )
+        );
+
+        if (itemValue === 'Lolos') {
+            Alert.alert('Informasi', 'Produk Lolos QC');
+        }
+
+        if (itemValue === 'Gagal') {
+            Alert.alert('Informasi', 'Produk Gagal QC');
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -49,28 +78,22 @@ export default function DetailScreen({
                         status === 'Gagal' && styles.gagal
                     ]}
                 >
-                    {status === '' ? 'Belum Dicek' : status}
+                    {status}
                 </Text>
             </View>
 
             <View style={styles.dropdownContainer}>
-                <Text style={styles.label}>Pilih Status:</Text>
+                <Text style={styles.label}>
+                    Pilih Status:
+                </Text>
 
                 <Picker
                     selectedValue={status}
-                    onValueChange={(itemValue) => {
-                        setStatus(itemValue);
-
-                        if (itemValue === 'Lolos') {
-                            alert('Produk Lolos QC');
-                        } else if (itemValue === 'Gagal') {
-                            alert('Produk Gagal QC');
-                        }
-                    }}
+                    onValueChange={handleStatusChange}
                 >
                     <Picker.Item
-                        label="-- Pilih Status --"
-                        value=""
+                        label="Belum Dicek"
+                        value="Belum Dicek"
                     />
 
                     <Picker.Item
@@ -128,6 +151,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#2c3e50',
     },
+
     dropdownContainer: {
         marginTop: 20,
         backgroundColor: '#fff',
